@@ -14,5 +14,13 @@ public class TestController {
 		
 		return "Hello World20"; 
 	}
+	
+	
+	//http://localhost:9696/main2
+	@GetMapping("/main2")
+	public String testMain2() {
+		
+		return "test/main2";
+	}
 
 }
