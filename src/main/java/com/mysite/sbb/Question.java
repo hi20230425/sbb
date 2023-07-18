@@ -11,6 +11,8 @@ import jakarta.persistence.Id;
 
 @Entity
 public class Question {
+		//질문 테이블 : 부모 테이블 
+	
 	//@Entity :  클래스 위에 부여 , DataBase의 테이블과 매칭 되는 자바 클래스 
 		// Question : 테이블명 
 		// 		변수 : 컬럼명 
@@ -31,10 +33,12 @@ public class Question {
 	
 	private LocalDateTime createDate; 
 	
+	/*
 	@Column( length = 100) 
 	private String name; 
 	
 	@Column( length = 100) 
 	private String age; 
+	*/ 
 
 }
