@@ -295,7 +295,7 @@ class SbbApplicationTests {
 			
 		}
 		
-		@Test
+		//@Test
 		void insertAnswer3() {
 			Question q = new Question(); 
 			q.setId(3);
@@ -320,11 +320,51 @@ class SbbApplicationTests {
 			aaa.setQuestion(q);
 			
 			ar.save(aaa); 
-			
-			
-			
-			
+				
 		}
+		
+		//제목을 기준으로 오름 차순 검색 
+		//@Test
+		void sortSubject() {
+			List<Question> all = qr.findAllByOrderBySubjectAsc(); 
+			
+			assertEquals(4, all.size());
+			
+			System.out.println("=== 제목을 기준으로 오름차순 정렬 ====");
+			for (int i = 0 ; i < all.size(); i++) {
+				System.out.println("== Question : " + i + " 번째 출력 ==");
+				Question q = all.get(i); 
+				
+				System.out.println(q.getId());
+				System.out.println(q.getSubject());
+				System.out.println(q.getContent());
+				System.out.println(q.getCreateDate());		
+			}
+					
+			System.out.println("=== 제목을 기준으로 오름차순 정렬 ====");
+		}
+		
+		//제목을 기준으로 오름 차순 검색 
+		@Test
+		void sortSubjectDesc() {
+			List<Question> all = qr.findAllByOrderBySubjectDesc(); 
+			
+			assertEquals(4, all.size());
+			
+			System.out.println("=== 제목을 기준으로 내림차순 정렬 ====");
+			for (int i = 0 ; i < all.size(); i++) {
+				System.out.println("== Question : " + i + " 번째 출력 ==");
+				Question q = all.get(i); 
+				
+				System.out.println(q.getId());
+				System.out.println(q.getSubject());
+				System.out.println(q.getContent());
+				System.out.println(q.getCreateDate());		
+			}
+					
+			System.out.println("=== 제목을 기준으로 내림차순 정렬 ====");
+		}
+		
 		
 		
 		
