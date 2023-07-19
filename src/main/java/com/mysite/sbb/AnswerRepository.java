@@ -8,4 +8,10 @@ public interface AnswerRepository extends JpaRepository<Answer, Integer> {
 	// findAll()    : select * from Answer ; 
 	// save (answer) : insert into Answer values (값)
 	
+	//findAll() 	: select * from answer 
+	//findById()	: select * from answer where id = ?
+	//save()		insert, update
+	//delete() 		delete
+	
+	
 }

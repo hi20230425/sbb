@@ -13,9 +13,16 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class SbbApplicationTests {
 	
-	//QuestionRepository 객체 주입 
+	//QuestionRepository 객체 주입 : Question Entity( Table ) <== CRUD  
 	@Autowired
-	private QuestionRepository qr; 
+	private QuestionRepository qr;
+	
+	
+	//AnswerRepository : Answer 테이블의 CRUD 
+	@Autowired
+	private AnswerRepository ar; 
+	
+	
 
 	//@Test
 	void contextLoads() {
@@ -122,7 +129,7 @@ class SbbApplicationTests {
 		assertEquals(4, q.getId()); 
 		
 	}
-	@Test
+	//@Test
 	void serchContentLike() {
 		List <Question> all = qr.findByContentLike("%궁금%"); 
 		
@@ -133,6 +140,194 @@ class SbbApplicationTests {
 		
 	}
 	
+	// 제목 과 내용을 동시에 검색 
+	//@Test
+	void searchSubjectContentLike() {
+		//select * from question where subject like '%?%' or content like '%?%'
+		List <Question> all = qr.findBySubjectLikeOrContentLike("%날씨%", "%부트%"); 
+		
+		Question q = all.get(0); 
+		
+		assertEquals(3, all.size());
+		assertEquals("오늘의 날씨는 어떠한지 궁금합니다.", q.getContent()); 
+		
+	}
+	//@Test
+	void sortCreatDateAsc () {
+		//날짜를 기준으로 오름 차순 정렬 해서 List 저장 
+//		List<Question> all = qr.findAllOrderByCreateDateAsc(); 
+		
+//		assertEquals (4, all.size() ); 
+		/*
+		System.out.println("========날짜를 오름차순 정렬 출력 : 시작 =========================");
+		for ( int i = 0 ; i < all.size() ; i++) {
+			
+			System.out.println("=======" + i + "=========");
+			
+			Question q = all.get(i); 
+			
+			System.out.println(q.getId());
+			System.out.println(q.getCreateDate());
+			System.out.println(q.getSubject());
+			System.out.println(q.getContent());
+		}
+		System.out.println("========날짜를 오름차순 정렬 출력 : 끝 =========================");
+	
+	*/
+	}
+	
+	// select * from question where subject Like '%?%' order by create_date asc; 
+	//@Test
+	void searchSubjectAndSort() {
+		List<Question> all = qr.findBySubjectLikeOrderByCreateDateAsc("%날씨%"); 
+		
+		assertEquals(2, all.size()); 
+		
+		System.out.println("=======콘솔 출력 시작==========");
+		for (int i = 0 ; i < all.size(); i++) {
+			System.out.println("=====Question : " + i + "============");
+			Question q = all.get(i); 
+			System.out.println(q.getId());
+			System.out.println(q.getCreateDate());
+			System.out.println(q.getSubject());
+			System.out.println(q.getContent());	
+		}
+		System.out.println("=======콘솔 출력 끝==========");
+		
+		
+	}
+	
+	
+	  // select * from question where subject Like '%?%' order by create_date Desc; 
+		//@Test
+		void searchSubjectAndSortDesc() {
+			List<Question> all = qr.findBySubjectLikeOrderByCreateDateDesc("%날씨%"); 
+			
+			assertEquals(2, all.size()); 
+			
+			System.out.println("=======콘솔 출력 시작==========");
+			for (int i = 0 ; i < all.size(); i++) {
+				System.out.println("=====Question : " + i + "============");
+				Question q = all.get(i); 
+				System.out.println(q.getId());
+				System.out.println(q.getCreateDate());
+				System.out.println(q.getSubject());
+				System.out.println(q.getContent());	
+			}
+			System.out.println("=======콘솔 출력 끝==========");
+			
+			
+		}
+		
+		// 값 넣기 : save() , insert
+		// Question 테이블에 값넣기 , Answer 테이블에 값넣기 
+		//@Test
+		void insertQuestion () {
+			Question q = new Question(); 
+			
+			q.setSubject("제목 - 스프링 부트는 프레임워크 입니까?" );
+			q.setContent("내용 - 스프링 부트는 프레임워크 입니다. 아주 쉽습니다. IoC/DI, AOP, PSA 기능이 적용");
+			q.setCreateDate(LocalDateTime.now()); 
+			
+			qr.save(q); 
+			
+		}
+		
+		//update : 수정 , save() 
+		//@Test
+		void updateQuestion () {
+			Question q = new Question () ; 
+			
+			q.setId(5);
+			
+			q.setContent("수정된 내용2 입니다");
+			q.setSubject("수정된 제목 2 입니다.");
+			q.setCreateDate(LocalDateTime.now());
+			
+			qr.save(q); 	
+			
+		}
+		//@Test
+		void deleteQuestion () {
+			Question q = new Question() ; 
+			
+			q.setId(5);
+			
+			qr.delete(q);	
+			
+		}
+		
+		//Answer 테이블에 값을 입력 : Question 테이블을 참좀해서 값을 넣어야 한다.  
+		//@Test
+		void insertAnswer() {
+			
+			Question q = new Question();
+			q.setId(1);
+			
+			Answer a = new Answer(); 
+			
+			a.setContent("오늘은 날씨가 매우 맑습니다");
+			a.setCreateDate(LocalDateTime.now());
+			a.setQuestion(q);
+			
+			ar.save(a); 	
+			
+		}
+		
+		//@Test
+		void insertAnswer2() {
+			Question q = new Question(); 
+			q.setId(2);
+			
+			Answer a = new Answer(); 
+			a.setContent("스프링 부트 질문의 답변 1");
+			a.setCreateDate(LocalDateTime.now());
+			a.setQuestion(q);
+			
+			ar.save(a); 
+			
+			Answer aa = new Answer(); 
+			aa.setContent("스프링 부트 질문의 답변 2");
+			aa.setCreateDate(LocalDateTime.now());
+			aa.setQuestion(q);
+			
+			ar.save(aa); 
+			
+		}
+		
+		@Test
+		void insertAnswer3() {
+			Question q = new Question(); 
+			q.setId(3);
+			
+			Answer a = new Answer(); 
+			a.setContent("야구");
+			a.setCreateDate(LocalDateTime.now());
+			a.setQuestion(q);
+			
+			ar.save(a); 
+			
+			Answer aa = new Answer(); 
+			aa.setContent("축구");
+			aa.setCreateDate(LocalDateTime.now());
+			aa.setQuestion(q);
+			
+			ar.save(aa); 
+			
+			Answer aaa = new Answer(); 
+			aaa.setContent("농구");
+			aaa.setCreateDate(LocalDateTime.now());
+			aaa.setQuestion(q);
+			
+			ar.save(aaa); 
+			
+			
+			
+			
+		}
+		
+		
+		
 	
 
 }

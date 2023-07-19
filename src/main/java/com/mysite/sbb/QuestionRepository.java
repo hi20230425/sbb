@@ -41,6 +41,32 @@ public interface QuestionRepository extends JpaRepository<Question, Integer> {
 	//select * from question where content like '%?%'
 	List<Question> findByContentLike(String content); 
 	
+	// 제목 과 내용 컬럼에서 검색 
+	//select * from question where subject like '%?%' or content like '%?%' 
+	List<Question> findBySubjectLikeOrContentLike(String subject, String content); 
 	
+	//정렬 해서 출력 하는 메소드 생성  <== 간단하고 자주 사용하는것 ,  복잡한 쿼리 : JPQL, QueryDSL 
+	// 날짜를 기준으로 오름 차순 정렬 (Asc) : 1 ---> 9 , A ----> Z , ㄱ ---> ㅎ 
+	// 날짜를 기준으로 내림 차순 정렬 (Desc) : 9---> 1,  Z-----> A , ㅎ ---> ㄱ
+	
+	// select * from question order by create_date asc; 
+	// List<Question> findAllOrderByCreateDateAsc();
+	// select * from question order by create_date desc;
+	//List<Question> findAllOrderByCreateDateDesc(); 
+	
+	//제목을 기준으로 검색후 날짜를 기준으로 오름 차순 정렬 후 출력 
+	// select * from question where subject Like '%?%' order by create_date asc; 
+	List<Question> findBySubjectLikeOrderByCreateDateAsc(String subject); 
+	
+	// select * from question where subject Like '%?%' order by create_date desc; 
+	List<Question> findBySubjectLikeOrderByCreateDateDesc(String subject); 
 
+	// 검색기능을 사용 (select , find ) 
+	
+	
+	// save ()    : insert, update 
+	
+	// delete()  : delete 
+	
+	
 }
