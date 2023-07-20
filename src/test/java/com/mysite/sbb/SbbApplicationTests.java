@@ -345,7 +345,7 @@ class SbbApplicationTests {
 		}
 		
 		//제목을 기준으로 오름 차순 검색 
-		@Test
+		//@Test
 		void sortSubjectDesc() {
 			List<Question> all = qr.findAllByOrderBySubjectDesc(); 
 			
@@ -364,7 +364,66 @@ class SbbApplicationTests {
 					
 			System.out.println("=== 제목을 기준으로 내림차순 정렬 ====");
 		}
+		//@Test
+		void searchDateAsc() {
+			List<Question> all = qr.findAllByOrderByCreateDateAsc(); 
+			
+			// List 의 Question 객체를 끄집어 내서 콘솔에 출력 
+			
+			System.out.println("===== CreateDate 컬럼을 오름 차순 정렬 후 출력<시작> ======");
+			for (int i = 0 ; i < all.size(); i++) {
+				System.out.println("====Question : " + i + " ============");
+				
+				Question q = all.get(i); 
+				
+				System.out.println(q.getId()); 
+				System.out.println(q.getCreateDate()); 
+				System.out.println(q.getSubject()); 
+				System.out.println(q.getContent()); 
+				
+			}
+			System.out.println("===== CreateDate 컬럼을 오름 차순 정렬 후 출력 <끝>======");
+				
+		}
+		//@Test
+		void searchDateDesc() {
+			List<Question> all = qr.findAllByOrderByCreateDateDesc(); 
+			
+			// List 의 Question 객체를 끄집어 내서 콘솔에 출력 
+			
+			System.out.println("===== CreateDate 컬럼을 내림 차순 정렬 후 출력<시작> ======");
+			for (int i = 0 ; i < all.size(); i++) {
+				System.out.println("====Question : " + i + " ============");
+				
+				Question q = all.get(i); 
+				
+				System.out.println(q.getId()); 
+				System.out.println(q.getCreateDate()); 
+				System.out.println(q.getSubject()); 
+				System.out.println(q.getContent()); 
+				
+			}
+			System.out.println("===== CreateDate 컬럼을 내림 차순 정렬 후 출력 <끝>======");
+				
+		}
 		
+		
+		// 데이터 입력 (save() ) : Question 테이블의 값 입력 
+		//   Entity 클래스의 Primary Key 컬럼의 값이 비어 있으면 : insert 
+		@Test
+		void insertQuestion4 () {
+			// Question Entity 클래스에 setter 주입으로 필드에 값을 할당. id 값을 넣지 않음. 
+			Question q = new Question();
+			q.setSubject("제목 = 스프링 부트에 대한 질문 입니다.333");
+			q.setContent("내용 - 스프링 부트에 대한 내용 입니다.333");
+			q.setCreateDate(LocalDateTime.now());
+			
+			qr.save(q); 
+			
+		}
+		
+		// 데이터 수정 (save() ) : Question 테이블의 특정 필드 수정 
+		//   Entity 클래스의 Primary Key 컬럼의 값이 존재하면 있으면 : update
 		
 		
 		

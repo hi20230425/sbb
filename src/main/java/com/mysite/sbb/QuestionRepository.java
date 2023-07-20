@@ -50,9 +50,9 @@ public interface QuestionRepository extends JpaRepository<Question, Integer> {
 	// 날짜를 기준으로 내림 차순 정렬 (Desc) : 9---> 1,  Z-----> A , ㅎ ---> ㄱ
 	
 	// select * from question order by create_date asc; 
-	 List<Question> findAllByOrderByCreateDateAsc();
+	// List<Question> findAllByOrderByCreateDateAsc();
 	// select * from question order by create_date desc;
-	List<Question> findAllByOrderByCreateDateDesc(); 
+	//List<Question> findAllByOrderByCreateDateDesc(); 
 	
 	//제목을 기준으로 검색후 날짜를 기준으로 오름 차순 정렬 후 출력 
 	// select * from question where subject Like '%?%' order by create_date asc; 
@@ -73,6 +73,15 @@ public interface QuestionRepository extends JpaRepository<Question, Integer> {
 	
 	//제목을 기준으로 내림차순 정렬 
 	List<Question> findAllByOrderBySubjectDesc(); 
+	
+	//날짜를 기준으로 검색 
+	//select * from question order by creat_date asc; 
+	List<Question> findAllByOrderByCreateDateAsc();
+	//select * from question order by creat_date desc; 
+	List<Question> findAllByOrderByCreateDateDesc();
+
+	
+	
 	
 	
 	
