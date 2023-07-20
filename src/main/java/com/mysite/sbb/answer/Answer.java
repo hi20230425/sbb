@@ -1,8 +1,10 @@
-package com.mysite.sbb;
+package com.mysite.sbb.answer;
 
 import java.time.LocalDateTime;		//그 지역에 맞도록 날짜와 시간을 등록 
 
 import org.springframework.data.annotation.CreatedDate;
+
+import com.mysite.sbb.question.Question;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

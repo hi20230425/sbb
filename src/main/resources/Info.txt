@@ -27,3 +27,29 @@
   		delete() :    delete 
   		count() : 	<Question 테이블의 레코드의 총 갯수 > 
   		
+  		
+ //Spring Boot : MVC 개발 하는 로직 
+  
+ client =====> Controller =====>Service =====> Repository ===> Entity ===> DB Table  		
+  	
+   Service Layer 를 두는 이유 : 
+      - 반복된 코드를 줄여줄 수 있음. 
+      - 보안 	
+      
+   * Controller 에서 직접 Repository 를 접근 하지 않는다. 중복된 코드가 반복 될수 있다. 
+   		
+  		
+  		
+  		
+  		
+  		
+  		
+  		
+  		
+  		
+  		
+  		
+  		
+  		
+  		
+  		
