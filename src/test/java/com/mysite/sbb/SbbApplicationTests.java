@@ -491,7 +491,7 @@ class SbbApplicationTests {
 		}
 		
 		//Answer 의 값 삭제 : delete() 
-		@Test
+		//@Test
 		void deletAnswer33() {
 			Answer a = new Answer();
 			a.setId(7);
@@ -535,8 +535,8 @@ class SbbApplicationTests {
 		}
 		
 		// 질문에대한 답변글 리스트 출력 :  question id 2 번글에대한 답변 List를 출력 
-		@Transactional
-		@Test
+		//@Transactional
+		//@Test
 		void allAnswerList2() {
 			Optional <Question> oq = qr.findById(2); 
 			
@@ -554,18 +554,52 @@ class SbbApplicationTests {
 					
 					System.out.println(a.getId());
 					System.out.println(a.getContent());
-					System.out.println(a.getCreateDate());
-								
+					System.out.println(a.getCreateDate());			
 				}			
-				System.out.println("===== Answer 객체 출력 <끝>======");
-				
-				
-				
-				
-			}
-			
+				System.out.println("===== Answer 객체 출력 <끝>======");				
+			}	
 		}
 		
-	
+		//Question 테이블에 값 넣기 / Answer 테이블 답변글 3개 넣기 
+		//@Test
+		void insertQuestion11() {
+			
+			Question q = new Question(); 
+			q.setSubject("질문- 제목 : Framework이 무엇인가요?");
+			q.setContent("질문-내용 : Framework이란 구제적으로 무엇인가요?");
+			q.setCreateDate(LocalDateTime.now());
+			
+			qr.save(q); 		
+		}
+		
+		@Test
+		void insertAnswer11() {
+			Optional<Question> oq = qr.findById(8); 
+			if (oq.isPresent()) {
+				Question q = oq.get();
+				
+				Answer a = new Answer(); 
+				a.setContent("구현된 기초(템플릿)  - AOP, IoC/DI , PSA ");
+				a.setCreateDate(LocalDateTime.now()); 
+				a.setQuestion(q); 
+				
+				ar.save(a); 
+				
+				Answer aa = new Answer(); 
+				aa.setContent("22. 구현된 기초(템플릿)  - AOP, IoC/DI , PSA ");
+				aa.setCreateDate(LocalDateTime.now()); 
+				aa.setQuestion(q); 
+				
+				ar.save(aa); 
+				
+				Answer aaa = new Answer(); 
+				aaa.setContent("구현된 기초(템플릿)  - AOP, IoC/DI , PSA ");
+				aaa.setCreateDate(LocalDateTime.now()); 
+				aaa.setQuestion(q); 
+				
+				ar.save(aaa); 
+				
+			}
+		}
 
 }
