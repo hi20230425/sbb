@@ -20,6 +20,7 @@ public class QuestionController {
 	private final QuestionService questionService; 
 	
 	//client의 /question/list 요청을 처리하는 메소드 : http://localhost:9696/question/list
+	// 리스트 
 	@GetMapping ("/question/list")
 	public String list(Model model) {
 		//1. client 요청을 받는다. http://localhost:9696/question/list
@@ -32,7 +33,7 @@ public class QuestionController {
 		
 		return "question_list"; 
 	}
-	
+	//상세 내용
 	@GetMapping("/question/detail/{id}")
 	public String detail(@PathVariable Integer id, Model model) {
 		
