@@ -15,7 +15,10 @@ public class QuestionService {
 	//Question 테이블의 모든 레코드를 읽어와서 List<Question> 으로 값을 리턴하는 메소드 
 	public List<Question> getList() {
 		
-		return questionRepository.findAll(); 
+		
+		List<Question> questionList = questionRepository.findAll(); 
+		//return questionRepository.findAll(); 
+		return questionList; 
 	}
 
 }
