@@ -1,8 +1,11 @@
 package com.mysite.sbb.question;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
+
+import com.mysite.sbb.DataNotFoundException;
 
 import lombok.RequiredArgsConstructor;
 
@@ -19,6 +22,28 @@ public class QuestionService {
 		List<Question> questionList = questionRepository.findAll(); 
 		//return questionRepository.findAll(); 
 		return questionList; 
+	}
+	
+	//글 상페 페이지 
+	public Question getQuestion(Integer id) {
+		// findById(?)
+		// select * from question where id = ?; 
+		
+		Optional<Question> question = questionRepository.findById(id); 
+		
+		if (question.isPresent()) {
+			//optional 내부의 객체가 null 이 아닐때  
+			//Question 객체를 리턴으로 돌려줌 
+			return question.get(); 
+			
+		}else {
+			//optional 내부의 객체가 null 일때 : 예외를 강제로 발생 시킴 : DataNotFoundException 
+			//throw : 예외를 강제로 발생 시킴 
+			//throws : 메소드에서 메소드를 호출 하는 곳에서 예외를 처리하도로 예외를 전가 
+			throw new DataNotFoundException("question not found"); 
+			
+		}
+		
 	}
 
 }

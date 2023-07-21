@@ -4,6 +4,7 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import lombok.RequiredArgsConstructor;
 
@@ -30,6 +31,29 @@ public class QuestionController {
 		model.addAttribute("questionList", questionList); 
 		
 		return "question_list"; 
+	}
+	
+	@GetMapping("/question/detail/{id}")
+	public String detail(@PathVariable Integer id, Model model) {
+		
+		//System.out.println("========id 변수에 들어오는 값 출력 ==========");
+		//System.out.println(id);
+		
+		//1. 클라이언트 요청을 받음 : http://localhost:9696/question/detail/{id}
+		//2. Service 에게 로직을 처리 
+		Question question = questionService.getQuestion(id);
+		/*
+		System.out.println(" === Question 객체 출력 =====");
+		System.out.println(question.getId());
+		System.out.println(question.getSubject());
+		System.out.println(question.getContent());
+		*/ 
+		
+		//3. 모델 객체에 백엔드의 값을 담아서 뷰 페이지로 전송 
+		model.addAttribute("question",question ); 
+	
+		return "question_detail"; 
+		
 	}
 	
 
