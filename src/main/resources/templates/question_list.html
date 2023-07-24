@@ -24,14 +24,15 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr th:each = "question : ${questionList}">
-				<td th:text="${question.id}">번호</td>
+			<!-- loop.count  : List의 방번호를 1번부터 출력    -->
+			<tr th:each = "question , loop : ${questionList}">
+				<td th:text="${loop.count}">번호</td>
 				<td>
 					
 					<a th:href = "@{|/question/detail/${question.id}|}"  th:text ="${question.subject}"> 제목 </a>
 					
 					</td>
-				<td th:text="${question.createDate}">작성일시</td>
+				<td th:text="${#temporals.format(question.createDate, 'yyyy-MM-dd HH:mm')}">작성일시</td>
 			</tr>	
 		</tbody>	
 	</table>
