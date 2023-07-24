@@ -3,14 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
+<!-- 부트 스트랩 링크  -->
+<link rel ="stylesheet" type="text/css" th:href = "@{/bootstrap.min.css}">
+
 </head>
 <body>
-	<h1> Question List 호출 성공 변경됨ㅁㅁㅁ </h1>
+	<h1> Question List 호출  </h1>
 	
 	<!-- 서버의 Model 객체에 전송된 값을 받아서 출력  -->
 	
-	<table>
-		<thead>  
+	<div class="container my-3">
+	<table class="table">
+		
+		<thead class = "table-dark">  
 			<tr> 
 				<th>번호</th>
 				<th>제목</th>
@@ -29,6 +35,7 @@
 			</tr>	
 		</tbody>	
 	</table>
+	</div>	
 	
 </body>
 </html>

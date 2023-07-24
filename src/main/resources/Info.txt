@@ -53,6 +53,22 @@
    		private final QuestionRepository questionRepository ; 
    				 
    - Setter를 이용한 주입 
+   
+ ===============================================
+ src/main/resources 
+   - templates : thymeleaf  뷰 페이지가 위치 , *.html 
+   - static : 외부의 css, 외부의 javascript 가 위치 해야 하는 곳 , bootstrap 의 파일. css , js
+   
+     
+   
+   
+   
+   
+   
+   
+   
+   
+   
   
   
   
