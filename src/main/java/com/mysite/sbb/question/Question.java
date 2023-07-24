@@ -40,7 +40,8 @@ public class Question {
 	@Column (length = 200)
 	private String subject; 
 	
-	@Column(columnDefinition = "Text")
+	//@Column(columnDefinition = "Text")
+	@Column(length=4000)
 	private String content; 
 	
 	@CreatedDate
