@@ -63,7 +63,7 @@ public class QuestionController {
 	
 	//질문 등록 요청 (get 요청 ) 
 	@GetMapping("/question/create")
-	public String questionCreate() {
+	public String questionCreate(QuestionForm questionForm) {
 		
 		return "question_form"; 
 	}
