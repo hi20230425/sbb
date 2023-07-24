@@ -1,21 +1,8 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>질문의 상세 페이지 </title>
 
-<!-- 외부 스타일 시트 링크 --> 
-<link rel ="stylesheet" type="text/css" th:href = "@{/style.css}">
-
-<!-- 부트 스트랩 링크  -->
-<link rel ="stylesheet" type="text/css" th:href = "@{/bootstrap.min.css}">
+<html layout:decorate="~{layout}">
 
 
-</head>
-<body>
-	
-<link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}">
-<div class="container my-3">
+<div layout:fragment="content" class="container my-3">
     <!-- 질문 -->
     <h2 class="border-bottom py-2" th:text="${question.subject}"></h2>
     <div class="card my-3">
@@ -50,5 +37,5 @@
     </form>
 </div>
 	
-</body>
+
 </html>

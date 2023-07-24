@@ -1,5 +1,6 @@
 package com.mysite.sbb.question;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -45,5 +46,18 @@ public class QuestionService {
 		}
 		
 	}
+	
+	// 질문 제목 + 질문 내용을 DB에 저장 : insert , update, delete  <=== void 
+	public void create(String subject, String content) {
+		Question question = new Question(); 
+		
+		question.setSubject(subject);
+		question.setContent(content);
+		question.setCreateDate(LocalDateTime.now());
+		
+		questionRepository.save(question); 
+		
+	}
+	
 
 }

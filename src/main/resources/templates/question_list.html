@@ -1,19 +1,9 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
 
-<!-- 부트 스트랩 링크  -->
-<link rel ="stylesheet" type="text/css" th:href = "@{/bootstrap.min.css}">
+<html layout:decorate="~{layout}">
 
-</head>
-<body>
-	<h1> Question List 호출  </h1>
-	
 	<!-- 서버의 Model 객체에 전송된 값을 받아서 출력  -->
 	
-	<div class="container my-3">
+	<div layout:fragment="content" class="container my-3">
 	<table class="table">
 		
 		<thead class = "table-dark">  
@@ -36,7 +26,11 @@
 			</tr>	
 		</tbody>	
 	</table>
+	
+	<a th:href = "@{/question/create}" class="btn btn-primary"> 질문 등록하기</a>
+	
+	
 	</div>	
 	
-</body>
+
 </html>
