@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}">
+
     <!-- sbb CSS -->
     <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
 
@@ -15,16 +16,18 @@
 		모든 페이지에서 css, js, bootstrap  
 	-->
 	
-	상단 헤더 <br> 
-	
+	<!-- navbar.html 불러 들이기 : 외부 파일 불러 들이기 -->
+	<nav th:replace="~{navbar::navbarFragment}"></nav>
 	
 	<!-- 모든 페이지가 적용되는 html --> 
 	<th:block layout:fragment="content"> </th:block>
 	
 	
-	
 	<br> 
 	하단 푸터 
 
+    <!-- Bootstrap JavaScript --> 
+    <script th:src="@{/bootstrap.min.js}"></script>
+    
 </body>
 </html>
