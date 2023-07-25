@@ -16,7 +16,7 @@
 		<tbody>
 			<!-- loop.count  : List의 방번호를 1번부터 출력    -->
 			<tr th:each = "question , loop : ${paging}">
-				<td th:text="${loop.count}">번호</td>
+				<td th:text="${paging.getTotalElements - (paging.number * paging.size) - loop.index}">번호</td>
 				<td>
 					
 					<a th:href = "@{|/question/detail/${question.id}|}"  th:text ="${question.subject}"> 제목 </a>
@@ -37,6 +37,7 @@
                 </a>
             </li>
             <li th:each="page: ${#numbers.sequence(0, paging.totalPages-1)}"
+            	th:if ="${page >= paging.number-5 and page <= paging.number+5}"
                 th:classappend="${page == paging.number} ? 'active'" 
                 class="page-item">
                 <a th:text="${page}" class="page-link" th:href="@{|?page=${page}|}"></a>
@@ -52,6 +53,11 @@
 
 	<a th:href = "@{/question/create}" class="btn btn-primary"> 질문 등록하기</a>
 	
+	<!--
+	<div th:text="${paging.totalPages}"></div>
+	<div th:text="${paging.number}"></div>
+	<div th:text="${paging.getTotalElements}"></div>
+	--> 
 	
 	</div>	
 	
