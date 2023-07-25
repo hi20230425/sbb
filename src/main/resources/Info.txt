@@ -80,9 +80,11 @@
       org.springframework.data.domain.PageRequest
       org.springframework.data.domain.Pageable  			<== 
       
-       
+      -- 레파지토리에서 설정 ( pageable : 요청한 페이지 번호, 레코드갯수)
+      Page<Question> findAll(Pageable pageable);  
      
-   
+   	  -- 서비스에서 컨트롤러로부터 클라이언트가 요청한 페이지번호를 받아서 pageable 객체에 할당, 레코드 수 할당. 
+   	  
    
    
    
