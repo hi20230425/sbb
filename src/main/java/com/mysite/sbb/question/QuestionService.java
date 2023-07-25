@@ -4,6 +4,9 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.mysite.sbb.DataNotFoundException;
@@ -17,13 +20,26 @@ public class QuestionService {
 	private final QuestionRepository questionRepository; 
 	
 	//Question 테이블의 모든 레코드를 읽어와서 List<Question> 으로 값을 리턴하는 메소드 
+	// 페이징 처리되지 않는 모든 레코드를 리턴 (사용중지) 
 	public List<Question> getList() {
-		
-		
+			
 		List<Question> questionList = questionRepository.findAll(); 
 		//return questionRepository.findAll(); 
 		return questionList; 
 	}
+	
+	// 페지징 처리해서 리턴으로 돌려줌 <사용> 
+	public Page<Question> getList(int page){
+			
+		//page : 클라이언트에서 파라메터로 요청한 페이지 번호
+		// 10  : 한 페이지에서 출력 할 레코드 갯수 
+		Pageable pageable = PageRequest.of(page, 10); 
+		
+		Page<Question> pageQuestion = questionRepository.findAll(pageable); 
+		
+		return pageQuestion; 
+	}
+	
 	
 	//글 상페 페이지 
 	public Question getQuestion(Integer id) {

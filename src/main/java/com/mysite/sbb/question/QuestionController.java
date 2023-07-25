@@ -1,6 +1,8 @@
 package com.mysite.sbb.question;
 
 import java.util.List;
+
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -29,15 +31,18 @@ public class QuestionController {
 	
 	//client의 /question/list 요청을 처리하는 메소드 : http://localhost:9696/question/list
 	// 리스트 
+	
+	// http://localhost:9696/question/list?page=1
+	
 	@GetMapping ("/list")			//  /question/list
-	public String list(Model model) {
+	public String list(Model model , @RequestParam(value="page", defaultValue="0") int page ) {
 		//1. client 요청을 받는다. http://localhost:9696/question/list
 		
 		//2. 비즈 니스 로직 처리 
-		List<Question> questionList = questionService.getList() ; 
+		Page<Question> paging = questionService.getList(page) ; 
 		
 		//3. 받아온 List를 client 로 전송 ( Model 객체에 저장해서 Cient로 전송 )  
-		model.addAttribute("questionList", questionList); 
+		model.addAttribute("paging", paging); 
 		
 		return "question_list"; 
 	}

@@ -71,6 +71,37 @@
    - 3. Controller 
    		 메소드 내부에 (@Valid QuestionForm questionForm, BindingResult bindingResult) 
    
+   ==============================================================
+   
+   Paging 처리 
+     - JPA 라이브러리 등록 , JPA에 등록된 객체가 자동으로 페이징 처리를 아주 쉽게 한다. 
+     
+      org.springframework.data.domain.Page 
+      org.springframework.data.domain.PageRequest
+      org.springframework.data.domain.Pageable  			<== 
+      
+       
+     
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
    
    
    
