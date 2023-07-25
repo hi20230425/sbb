@@ -7,11 +7,15 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import com.mysite.sbb.answer.AnswerForm;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
+@RequestMapping("/question")
 @RequiredArgsConstructor    //생성자를 이용한 객체 주입 방식 : class내부의 final 이 붙은 변수에 객체를 주입 
 @Controller
 public class QuestionController {
@@ -25,7 +29,7 @@ public class QuestionController {
 	
 	//client의 /question/list 요청을 처리하는 메소드 : http://localhost:9696/question/list
 	// 리스트 
-	@GetMapping ("/question/list")
+	@GetMapping ("/list")			//  /question/list
 	public String list(Model model) {
 		//1. client 요청을 받는다. http://localhost:9696/question/list
 		
@@ -38,8 +42,8 @@ public class QuestionController {
 		return "question_list"; 
 	}
 	//상세 내용
-	@GetMapping("/question/detail/{id}")
-	public String detail(@PathVariable Integer id, Model model) {
+	@GetMapping("/detail/{id}")
+	public String detail(@PathVariable Integer id, Model model, AnswerForm answerForm) {
 		
 		//System.out.println("========id 변수에 들어오는 값 출력 ==========");
 		//System.out.println(id);
@@ -62,14 +66,14 @@ public class QuestionController {
 	}
 	
 	//질문 등록 요청 (get 요청 ) 
-	@GetMapping("/question/create")
+	@GetMapping("/create")
 	public String questionCreate(QuestionForm questionForm) {
 		
 		return "question_form"; 
 	}
 	
 	//폼에서 제목과 내용을 받아서 DB에 등록 로직 
-	@PostMapping("/question/create")
+	@PostMapping("/create")
 	//public String questionCreate(@RequestParam String subject, @RequestParam String content) {
 	public String questionCreate(@Valid QuestionForm questionForm, BindingResult bindingResult) {
 		
@@ -84,7 +88,7 @@ public class QuestionController {
 		
 	
 		//DB에 저장 
-		questionService.create(questionForm.getSubject(), questionForm.getSubject());
+		questionService.create(questionForm.getSubject(), questionForm.getContent());
 		
 		return "redirect:/question/list"; 
 	}
