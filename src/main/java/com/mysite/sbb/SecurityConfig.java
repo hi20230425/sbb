@@ -4,6 +4,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.header.writers.frameoptions.XFrameOptionsHeaderWriter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
@@ -47,6 +49,14 @@ public class SecurityConfig {
 			;	
 		return http.build(); 
 	}
+	
+	
+	@Bean					//Spring 컨테이버 (Ioc 컨테이너 ) 객체를 등록  
+	PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder(); 
+	}
+	
+	// PasswordEncoder ( 인터페이스 )  ==> BCryptPasswordEncoder ( 구현한 클래스 ) 
 
 	
 }
