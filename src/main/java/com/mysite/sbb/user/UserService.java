@@ -7,6 +7,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.mysite.sbb.DataNotFoundException;
+
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor			// DI : 생성자를 통한 객체 주입 방식 
@@ -59,6 +61,23 @@ public class UserService {
 		}
 		
 	}
+	
+	// username 을 받아서 DB에서 값을 읽어오는 메소드 
+	public SiteUser getUser (String username) {
+		
+		Optional <SiteUser> _siteUser = userRepository.findByusername(username); 
+		
+		if ( _siteUser.isPresent()) {
+			// 값이 DB에 존재할 경우 
+			return _siteUser.get(); 
+		}else {
+			// 값이 DB에 존재하지 않는 경우 
+			throw new DataNotFoundException("사용자가 DB에 존재하지 않습니다."); 
+			
+		}
+		
+	}
+	
 	
 
 }
