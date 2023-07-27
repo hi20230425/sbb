@@ -1,5 +1,7 @@
 package com.mysite.sbb.user;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -34,6 +36,28 @@ public class UserService {
 		userRepository.save(user); 
 		
 		return user ; 
+	}
+	
+	// 사용자 정보를 읽어오는 메소드 
+	public void selectUser(String username) {
+		
+		Optional<SiteUser> Ouser= 
+		userRepository.findByusername(username); 
+		
+		// 
+		if (Ouser.isPresent()) {
+			System.out.println(username + " 는 존재하는 사용자 입니다. ");
+			
+			SiteUser user = Ouser.get(); 
+			System.out.println("username : " + user.getUsername());
+			System.out.println("email : " + user.getUsername());
+			System.out.println("password : " + user.getPassword());
+			
+			
+		}else {
+			System.out.println(username + " 는 존재 하지 않는 사용자 입니다.");
+		}
+		
 	}
 	
 

@@ -22,5 +22,14 @@ class UserServiceTest2 {
 		
 		System.out.println("잘 등록 되었습니다. ");
 	}
+	
+	@Test
+	void testselectUser() {
+		
+		userService.selectUser("user12"); 
+		
+		System.out.println("성공");
+	}
+	
 
 }
