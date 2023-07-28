@@ -30,11 +30,14 @@
 						question.author.username}"
 				th:href="@{|/question/modify/${question.id}|}" th:text="수정"> </a>	
 				
-				<a class="delete btn btn-sm btn-outline-secondary" 
+				<a 
+				href="javascript:void(0);"
+				th:data-uri="@{|/question/delete/${question.id}|}"	
+				class="delete btn btn-sm btn-outline-secondary" 
 				sec:authorize ="isAuthenticated()"
 				th:if ="${question.author != null and #authentication.getPrincipal().getUsername() ==
 						question.author.username}"
-				th:href="@{|/question/delete/${question.id}|}" th:text="삭제"
+				th:text="삭제"
 				></a>	
 			</div>
             <!-- 수정 버튼 시작 --> 
