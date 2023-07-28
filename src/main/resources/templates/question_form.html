@@ -4,12 +4,14 @@
 	<div  layout:fragment="content" class="container">
 		<h5 class="my-3 border-bottom pb-2"> 질문 등록 </h5>
 		
-		<!-- question_form.html : 질문 글 등록, 수정   2개를 처리 
+		<!-- question_form.html : 질문 글 등록, 수정   2개를 처리
+			method = "post" 
 				질문 글 등록 : /question/create
-				질문 글 수정 : /question/create/{변수값}
+				질문 글 수정 : /question/modify/{변수}
 				
 			form 태그에서 action 을 생략 하면 URL 를 사용해서 서버에게 요청을 보냄. 	
 				CSRF 토큰이 서버에서 주입이 안됨 
+				
 		 --> 
 		
 		

@@ -149,5 +149,34 @@ public class QuestionController {
 		return "question_form"; 
 	}
 	
+	// 글수정 
+	@PreAuthorize("isAuthenticated")
+	@PostMapping ("/modify/{id}")
+	public String questionModify (
+			@PathVariable("id") Integer id , 
+			@Valid QuestionForm questionForm, BindingResult bindingResult, 
+			Principal principal			
+			) {
+		
+		//글 수정시 제목, 내용을 반드시 체크후 수정 
+		if ( bindingResult.hasErrors()) {
+			
+			return "question_form"; 
+		}
+		
+		
+		
+		// 1. id 변수를 가지고 Question 객체 호출 
+		Question question = questionService.getQuestion(id); 
+		
+		//글 수정 
+		questionService.modify(question, questionForm.getSubject(), questionForm.getContent()); 
+		
+		// 글 수정후 
+		return String.format("redirect:/question/detail/%s", id); 
+	}
+	
+	
+	
 
 }

@@ -1,5 +1,6 @@
 
 <html layout:decorate="~{layout}">
+	
 
 
 <div layout:fragment="content" class="container my-3">
@@ -27,7 +28,14 @@
 				sec:authorize ="isAuthenticated()"
 				th:if ="${question.author != null and #authentication.getPrincipal().getUsername() ==
 						question.author.username}"
-				th:href="@{|/question/modify/${question.id}|}" th:text="수정"> </a>		
+				th:href="@{|/question/modify/${question.id}|}" th:text="수정"> </a>	
+				
+				<a class="btn btn-sm btn-outline-secondary" 
+				sec:authorize ="isAuthenticated()"
+				th:if ="${question.author != null and #authentication.getPrincipal().getUsername() ==
+						question.author.username}"
+				th:href="@{|/question/delete/${question.id}|}" th:text="삭제"
+				></a>	
 			</div>
             <!-- 수정 버튼 시작 --> 
         </div>
