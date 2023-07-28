@@ -129,5 +129,23 @@ public class QuestionController {
 	}
 	
 	
+	//글 수정 
+	@GetMapping("/question/modify/{id}")
+	public String questionModify(
+			@RequestParam("id") Integer id, 
+			QuestionForm questionForm , Principal principal
+			) { 
+		
+		// id 변수를 
+		Question question = questionService.getQuestion(id); 
+		
+		//
+		
+		
+		
+		
+		return "question_form"; 
+	}
+	
 
 }
