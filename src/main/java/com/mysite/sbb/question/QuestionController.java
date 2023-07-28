@@ -4,6 +4,7 @@ import java.security.Principal;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -85,6 +86,7 @@ public class QuestionController {
 	}
 	
 	//질문 등록 요청 (get 요청 ) 
+	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/create")
 	public String questionCreate(QuestionForm questionForm) {
 		
@@ -92,11 +94,17 @@ public class QuestionController {
 	}
 	
 	//폼에서 제목과 내용을 받아서 DB에 등록 로직 
+	
+	@PreAuthorize("isAuthenticated()")
+		// 인증된 사용자만 접근 가능 
+		// 인증되지 않는 사용자가 접근시 : /user/login 페이지로 돌려줌  <== Spring Security 
 	@PostMapping("/create")			//  /question/create
 	//public String questionCreate(@RequestParam String subject, @RequestParam String content) {
 	public String questionCreate(@Valid QuestionForm questionForm, BindingResult bindingResult,
 			Principal principal
 			) {
+		
+		System.out.println("현재 로그인한 계정 : " + principal.getName());
 		
 		// 제목과 내용을 받어서 DB에 저장 
 		System.out.println("제목(dto) : " + questionForm.getSubject());
@@ -108,6 +116,7 @@ public class QuestionController {
 		}
 		
 		// principal.getName() : 현재 로그인한 계정의 username 알아온다. 
+		// 로그인 하지 않는 상태에서 : principal.getName() 을 호출 하는 경우 오류 페이지가 발생 
 		
 		SiteUser siteUser = 
 		userService.getUser(principal.getName()); 

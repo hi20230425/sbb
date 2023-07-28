@@ -36,8 +36,10 @@
 		<!-- 외부의 파일을 불러 들임 --> 
 		<div th:replace="~{formErrors::formErrorsFragment}"></div>
 		
-        
-        <textarea th:field="*{content}" rows="10" class="form-control"></textarea>
+		<!-- 로그인 하지않았을때는 <textarea> 를 비활성화  --> 
+        <textarea sec:authorize="isAnonymous()" disabled th:field="*{content}" rows="10" class="form-control"></textarea>
+        <!-- 로그인 되었을때 <textarea> 를 활성화  --> 
+        <textarea sec:authorize="isAuthenticated()" th:field="*{content}" rows="10" class="form-control"></textarea>
         <!-- th:field="*{content} : name="content", id="content", value="content" -->
         
         <input type="submit" value="답변등록" class="btn btn-primary my-2">
