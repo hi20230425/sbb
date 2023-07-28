@@ -130,20 +130,22 @@ public class QuestionController {
 	
 	
 	//글 수정 
-	@GetMapping("/question/modify/{id}")
+	@PreAuthorize("isAuthenticated")
+	@GetMapping("/modify/{id}")
 	public String questionModify(
-			@RequestParam("id") Integer id, 
+			@PathVariable("id") Integer id, 
 			QuestionForm questionForm , Principal principal
 			) { 
 		
-		// id 변수를 
+		// id 변수를 사용해서 question 객체를 얻어온다. 
 		Question question = questionService.getQuestion(id); 
 		
-		//
+		//DB에서 가져온 question 객의 값을 questionForm Setter 주입 
+		questionForm.setSubject(question.getSubject()); 
+		questionForm.setContent(question.getContent()); 
 		
-		
-		
-		
+			
+		// question_form.html   : 질문글 등록, 수정 
 		return "question_form"; 
 	}
 	
