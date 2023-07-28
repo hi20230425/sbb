@@ -30,7 +30,7 @@
 						question.author.username}"
 				th:href="@{|/question/modify/${question.id}|}" th:text="수정"> </a>	
 				
-				<a class="btn btn-sm btn-outline-secondary" 
+				<a class="delete btn btn-sm btn-outline-secondary" 
 				sec:authorize ="isAuthenticated()"
 				th:if ="${question.author != null and #authentication.getPrincipal().getUsername() ==
 						question.author.username}"

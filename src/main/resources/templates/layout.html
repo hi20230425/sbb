@@ -10,20 +10,7 @@
     <!-- sbb CSS -->
     <link rel="stylesheet" type="text/css" th:href="@{/style.css}">
     
-    <script type= "text/javascript">
-		// 글 삭제시 자바스크 립트 블락 
-		const delete_elements = document.getElementsByClassName("delete"); 
-		
-		Array.from(delete_elements).forEach (function(element) {
-		  element.addEventlistener('click', function() {
-			  if (confirm("정말로 삭제 하시겠습니까/")) {
-				  location.href = this.dataset.uri; 
-			  };		  
-		  });
-			
-		}); 
-		
-	</script> 
+
 
 </head>
 <body>
@@ -43,6 +30,19 @@
 
     <!-- Bootstrap JavaScript --> 
     <script th:src="@{/bootstrap.min.js}"></script>
+    
+    <script type='text/javascript'>
+		const delete_elements = document.getElementsByClassName("delete");
+		Array.from(delete_elements).forEach(function(element) {
+		    element.addEventListener('click', function() {
+		        if(confirm("정말로 삭제하시겠습니까?")) {
+		            location.href = this.dataset.uri;
+		        };
+		    });
+		});
+	</script>
+
+
     
 </body>
 </html>

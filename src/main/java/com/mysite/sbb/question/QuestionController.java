@@ -176,6 +176,26 @@ public class QuestionController {
 		return String.format("redirect:/question/detail/%s", id); 
 	}
 	
+	// 글 삭제 
+	
+	@PreAuthorize("isAuthenticated")
+	@GetMapping("/delete/{id}")
+	public String delete(
+			@PathVariable("id") Integer id			
+			) {
+		
+		//1. id를 받아서 question 객체를 가져옴 
+		Question question = 
+				questionService.getQuestion(id); 
+		
+		//2. 
+			questionService.delete(question); 
+		
+		
+		// 삭제 후 "/"로 이동 
+		return "redirect:/" ; 		//http://localhost:9696/
+	}
+	
 	
 	
 
