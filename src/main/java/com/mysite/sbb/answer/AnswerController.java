@@ -6,6 +6,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -75,5 +76,22 @@ public class AnswerController {
 		
 		
 	}
+	
+	// 답변글 수정 
+	@PreAuthorize("isAuthenticated()")    //인증된 사용자만 접근, 인증되지 않았을때 인증 폼으로 전송
+	@GetMapping ("/modify/{id}")
+	public String answerModify(
+			AnswerForm answerForm, @PathVariable("id") Integer id , 
+			Principal principal		
+			) {
+		// id 값으로 Answer 객체 반환 
+			
+		
+		
+		
+		return "answer_form"; 
+	}
+	
+	
 
 }
