@@ -96,6 +96,7 @@ public class AnswerController {
 	}
 	
 	//답글 DB에 수정 
+	@PreAuthorize("isAuthenticated()")
 	@PostMapping ("/modify/{id}")
 	public String answerModify(
 			@PathVariable("id") Integer id , 
@@ -117,6 +118,23 @@ public class AnswerController {
 		answerService.modify(answer, answerForm.getContent()); 
 		
 			
+		return String.format("redirect:/question/detail/%s", answer.getQuestion().getId()); 
+	}
+	
+	//답변 삭제 
+	@PreAuthorize("isAuthenticated()")
+	@GetMapping("/delete/{id}")
+	public String answerDelete(
+			@PathVariable ("id") Integer id			
+			) {
+		// id 값으로 Answer 객체를 DB에서 가지고 온다.
+		Answer answer = 
+				answerService.getAnswer(id); 
+		
+		// delete 메소드 호출 
+		answerService.delete(answer);
+		
+		
 		return String.format("redirect:/question/detail/%s", answer.getQuestion().getId()); 
 	}
 	

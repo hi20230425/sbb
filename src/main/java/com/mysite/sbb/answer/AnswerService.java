@@ -58,5 +58,13 @@ public class AnswerService {
 		
 		answerRepository.save(answer); 
 	}
+	
+	// 삭제 메소드 : Answer 객체를 매개변수로 받아서 삭제 
+	public void delete(Answer answer) {
+		
+		
+		answerRepository.delete(answer);
+	}
+	
 
 }

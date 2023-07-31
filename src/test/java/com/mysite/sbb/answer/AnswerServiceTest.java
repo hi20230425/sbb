@@ -33,5 +33,13 @@ class AnswerServiceTest {
 	void testModify() {
 		fail("Not yet implemented");
 	}
+	
+	@Test
+	void testDelete () {
+		Answer answer = new Answer(); 
+		answer.setId(42);
+		
+		answerService.delete(answer);
+	}
 
 }
