@@ -48,7 +48,15 @@ public class AnswerService {
 			//객체가 비어있을때 : DB의 값이 존재 하지 않을때 예외 발생 
 			throw new DataNotFoundException ("answer not found"); 
 		}
-
+	}
+	
+	// 답변 수정 메소드 
+	public void modify(Answer answer, String content) {
+		
+		answer.setContent(content);
+		answer.setCreateDate(LocalDateTime.now());
+		
+		answerRepository.save(answer); 
 	}
 
 }

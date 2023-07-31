@@ -85,10 +85,13 @@ public class AnswerController {
 			Principal principal		
 			) {
 		// id 값으로 Answer 객체 반환 
-			
+		Answer answer = 
+				answerService.getAnswer(id); 
 		
+		// answerForm : DB에서 가져온 값을 저장후 뷰 페이지로 전송
+		answerForm.setContent(answer.getContent()); 
 		
-		
+		//답글을 수정하는 페이지로 던짐 
 		return "answer_form"; 
 	}
 	
