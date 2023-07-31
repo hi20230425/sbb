@@ -2,6 +2,7 @@ package com.mysite.sbb.answer;
 
 import java.security.Principal;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.mysite.sbb.question.Question;
 import com.mysite.sbb.question.QuestionService;
@@ -113,7 +115,11 @@ public class AnswerController {
 			return "answer_form"; 
 		}
 		
-		//서비스 , 
+
+		if ( !answer.getAuthor().getUsername().equals(principal.getName())) {
+			// DB에 질문을 등록한 계정과 현재 로그온한 계정이 같지 않을때 예외 강제 발생
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "답글 삭제 권한이 없습니다."); 
+		}
 			
 		answerService.modify(answer, answerForm.getContent()); 
 		
@@ -138,6 +144,26 @@ public class AnswerController {
 		return String.format("redirect:/question/detail/%s", answer.getQuestion().getId()); 
 	}
 	
-	
+	//답변 추천 등록 
+	@PreAuthorize("isAuthenticated()")
+	@GetMapping("/vote/{id}")
+	public String answerVote(
+			@PathVariable("id") Integer id, 
+			Principal principal 
+			) {
+		//1. id로 Answer 객체 리턴
+		Answer answer = 
+				answerService.getAnswer(id); 
+		
+		//2. principal 로 SiteUser 객체를 리턴 
+		SiteUser siteUser= 
+				userService.getUser(principal.getName()); 
+		
+		//3. 메소드 호출
+		answerService.vote(answer, siteUser); 
+		
+		
+		return String.format("redirect:/question/detail/%s", answer.getQuestion().getId()); 
+	}
 
 }

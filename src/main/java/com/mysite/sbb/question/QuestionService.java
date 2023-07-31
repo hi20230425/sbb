@@ -91,7 +91,7 @@ public class QuestionService {
 		
 		question.setSubject(subject);
 		question.setContent(content);
-		question.setCreateDate(LocalDateTime.now());
+		question.setModifyDate(LocalDateTime.now());
 		
 		questionRepository.save(question); 
 		
@@ -101,6 +101,20 @@ public class QuestionService {
 	public void delete(Question question) {
 			
 		questionRepository.delete(question); 
+		
+	}
+	
+	// 글 추천 등록 메소드 
+	public void vote(Question question, SiteUser siteuser) {
+		
+		//question.getVoter()   <=== Set 
+		question.getVoter().add(siteuser); 
+		
+		//주의 : 
+		//question.setVoter(siteuser);
+		
+		
+		questionRepository.save(question); 
 		
 	}
 

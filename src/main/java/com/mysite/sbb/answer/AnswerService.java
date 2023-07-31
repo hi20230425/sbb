@@ -54,7 +54,7 @@ public class AnswerService {
 	public void modify(Answer answer, String content) {
 		
 		answer.setContent(content);
-		answer.setCreateDate(LocalDateTime.now());
+		answer.setModifyDate(LocalDateTime.now()); 
 		
 		answerRepository.save(answer); 
 	}
@@ -64,6 +64,15 @@ public class AnswerService {
 		
 		
 		answerRepository.delete(answer);
+	}
+	
+	public void vote(Answer answer, SiteUser siteuser) {
+		
+		// answer.getVoter()   <=== Set
+		answer.getVoter().add(siteuser); 
+		
+		answerRepository.save(answer); 
+		
 	}
 	
 

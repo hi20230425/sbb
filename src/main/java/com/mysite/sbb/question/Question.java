@@ -2,6 +2,7 @@ package com.mysite.sbb.question;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.data.annotation.CreatedDate;
 
@@ -14,6 +15,7 @@ import jakarta.persistence.Entity;		//spring boot 3.0 ,
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import lombok.Getter;
@@ -49,6 +51,8 @@ public class Question {
 	@CreatedDate
 	private LocalDateTime createDate; 
 	
+	private LocalDateTime modifyDate; 
+	
 	//실제 테이블에는 적용되지 않음. 
 	//해당 질문에 대한 모든 답변을 불러오는 컬럼. 
 	//Question 객체의 id 필드에 들어오는 값에대한 Answer 테이블의 모든 값을 List 에 담아서 온다. 
@@ -74,6 +78,14 @@ public class Question {
 	@ManyToOne
 	private SiteUser author; 
 	
+	
+	//질문과 추천인의 관계는 다 : 다   
+	// Set 은 중복된 값이 올수 없다. 
+	// QUESTION_VOTE 테이블이 생성됨 : QUESTION_ID, VOTE_ID 컬럼이 생성됨 
+			//QUESTION_ID 컬럼은 Question 테이블의 ID 컬럼을 참조 
+			//VOTE_ID 컬럼은 SiteUser 테이블의 ID 컬럼을 참조함. 
+	@ManyToMany
+	Set<SiteUser> voter;
 	
 	
 }
