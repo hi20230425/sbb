@@ -77,7 +77,7 @@ public class AnswerController {
 		
 	}
 	
-	// 답변글 수정 
+	// 답변글 수정 뷰페이지로 전달 
 	@PreAuthorize("isAuthenticated()")    //인증된 사용자만 접근, 인증되지 않았을때 인증 폼으로 전송
 	@GetMapping ("/modify/{id}")
 	public String answerModify(
@@ -93,6 +93,31 @@ public class AnswerController {
 		
 		//답글을 수정하는 페이지로 던짐 
 		return "answer_form"; 
+	}
+	
+	//답글 DB에 수정 
+	@PostMapping ("/modify/{id}")
+	public String answerModify(
+			@PathVariable("id") Integer id , 
+			@Valid AnswerForm answerForm, BindingResult bindingResult,
+			Principal principal			
+			) {
+		
+		// id를 받아서 Answer 객체를 끄집어 온다. 
+		Answer answer = answerService.getAnswer(id); 
+		
+		//answerForm의 content 필드의 값이 넘어오지 않을 경우 
+		if (bindingResult.hasErrors()) {
+			
+			return "answer_form"; 
+		}
+		
+		//서비스 , 
+			
+		answerService.modify(answer, answerForm.getContent()); 
+		
+			
+		return String.format("redirect:/question/detail/%s", answer.getQuestion().getId()); 
 	}
 	
 	
