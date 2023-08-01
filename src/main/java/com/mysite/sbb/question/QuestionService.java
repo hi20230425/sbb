@@ -33,7 +33,7 @@ public class QuestionService {
 	}
 	
 	// 페지징 처리해서 리턴으로 돌려줌 <사용> 
-	public Page<Question> getList(int page){
+	public Page<Question> getList(int page, String kw){
 		
 		// Pageable 객체에 특정 컬럼을 정렬할 객체를 생성해서 인자로 넣어줌 
 		// Sort Import시 주의 : org.springframework.data.domain.Sort; 
@@ -45,7 +45,9 @@ public class QuestionService {
 		// createDate 컬럼을 desc 
 		Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts)); 
 		
-		Page<Question> pageQuestion = questionRepository.findAll(pageable); 
+		//Page<Question> pageQuestion = questionRepository.findAll(pageable); 
+		Page<Question> pageQuestion = questionRepository.findAllByKeyword(kw, pageable);
+		
 		
 		return pageQuestion; 
 	}
