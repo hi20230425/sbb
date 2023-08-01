@@ -92,7 +92,7 @@ public interface QuestionRepository extends JpaRepository<Question, Integer> {
 	
 	
 	//검색어를 처리한 페이징 처리 메소드 
-	
+	// 주의 : 테이블 명이 아니라 엔티티명으로 매핑 
 	@Query("select  distinct q "
 			+ " from Question q "
 			+ "        LEFT OUTER JOIN SiteUser u1 "
