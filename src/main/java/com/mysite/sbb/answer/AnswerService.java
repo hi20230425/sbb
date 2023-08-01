@@ -19,7 +19,7 @@ public class AnswerService {
 	private final AnswerRepository answerRepository; 
 	
 	//답변글 등록 : Question 객체, content 
-	public void create (Question question, String content, SiteUser author) {
+	public Answer create (Question question, String content, SiteUser author) {
 		Answer answer = new Answer(); 
 		
 		answer.setContent(content);
@@ -30,6 +30,10 @@ public class AnswerService {
 		answer.setAuthor(author);
 		
 		answerRepository.save(answer); 
+		
+		// DB에 갑을 넣은후 넣은 객체를 반환 
+		
+		return answer; 
 			
 	}
 	

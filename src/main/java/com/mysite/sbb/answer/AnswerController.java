@@ -70,11 +70,14 @@ public class AnswerController {
 		//Principal 에서 username 을 인풋받아서 SiteUser 객체를 받아온다. 
 		SiteUser siteUser = userService.getUser(principal.getName()); 
 		
-		//2. Service 에서 변수 2개를 넣어서 값을 Insert 
-		answerService.create(question, answerForm.getContent(), siteUser); 
+		//2. Service 에서 변수 2개를 넣어서 값을 Insert
+		Answer answer = 
+				answerService.create(question, answerForm.getContent(), siteUser); 
+		
+		
 		
 		//question_detail 로 리턴 : get 방식으로 URL로 redirect 
-		return String.format("redirect:/question/detail/%s",id ) ; 
+		return String.format("redirect:/question/detail/%s#answer_%s",id, answer.getId() ) ; 
 		
 		
 	}
@@ -162,8 +165,9 @@ public class AnswerController {
 		//3. 메소드 호출
 		answerService.vote(answer, siteUser); 
 		
-		
-		return String.format("redirect:/question/detail/%s", answer.getQuestion().getId()); 
+		// 투표후 해당 위치로 고정 : 
+		//return String.format("redirect:/question/detail/%s", answer.getQuestion().getId()); 
+		return String.format("redirect:/question/detail/%s#answer_%s", answer.getQuestion().getId(),answer.getId()); 
 	}
 
 }
