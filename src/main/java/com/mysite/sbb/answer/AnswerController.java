@@ -127,7 +127,7 @@ public class AnswerController {
 		answerService.modify(answer, answerForm.getContent()); 
 		
 			
-		return String.format("redirect:/question/detail/%s", answer.getQuestion().getId()); 
+		return String.format("redirect:/question/detail/%s#answer_%s", answer.getQuestion().getId(), answer.getId()); 
 	}
 	
 	//답변 삭제 
