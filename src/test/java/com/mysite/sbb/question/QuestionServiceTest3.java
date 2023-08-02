@@ -16,9 +16,10 @@ class QuestionServiceTest3 {
 	@Test
 	void testGetListIntString() {
 		Page<Question> paging = 
-				questionService.getList(2, "스프링"); 
+				questionService.getList(0, ""); 
 		
-		System.out.println("검색된 갯수 : " + paging.getSize() );
+		//System.out.println("검색된 갯수 : " + paging.getSize());  //10 한페이지에 레코드 갯수
+		System.out.println("검색된 갯수 : " + paging.getTotalElements() );
 			
 	}
 
