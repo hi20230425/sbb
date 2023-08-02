@@ -1,0 +1,16 @@
+
+1. AWS EC2 에 Ubuntu Linx 인스턴스(VM)  생성
+
+2. Spring Boot 에서 배포 파일 생성 : jar 
+    - JAR : 내장 톰캣으로 배포 , 타임리프 
+    - WAR : 외장 톰캣을 사용, JSP
+    
+    bootJar
+    ${workspace_loc:/sbb}
+    
+     C:\workspace-STS4\sbb\build\libs\sbb-0.0.1-SNAPSHOT.jar
+
+	sbb-0.0.1-SNAPSHOT.jar   <=== 배포 파일 : java -jar sbb-0.0.1-SNAPSHOT.jar
+
+3. sbb-0.0.1-SNAPSHOT.jar을 서버에 전송 
+
