@@ -213,8 +213,11 @@ docker rm -f $(docker ps -a -q) && docker rmi -f $(docker images -q)
 	java -Dspring.profiles.active=prod -jar sbb-0.0.3-SNAPSHOT.jar
 		application.properties 			: 개발 환경 
 		application-prod.properties 	: 운영 환경 
+
 		
 서비스 시작 스크립트 : start_prod.sh
+   $ cd ~
+   $ vi start_prod.sh 
 ===========================================
 #!/bin/bash 
 
@@ -224,8 +227,9 @@ export spring_profiles_active=prod
 
 nohup sudo java -jar $JAR > $LOG 2>&1 &
 ===========================================
-실행 권한을 부여 : sudo chmod +x start.sh 
-		
+실행 권한을 부여 : sudo chmod +x start_prod.sh 
+
+스크립트 실행 :  ./start_prod.sh	
 	
 서비스 종료 스크립트 : stop.sh
 ===========================================
