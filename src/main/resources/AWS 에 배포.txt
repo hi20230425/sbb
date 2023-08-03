@@ -117,10 +117,12 @@ AWS VM 2개 생성
    		
    		
    - DB  : Oracle , 도커 레지스트리에서 Oracle 이미지 다운 (TCP 1521) 
-   		3.36.90.205
+   		15.164.244.233
       	- 호스트이름변경 : sudo hostnamectl set-hostname DB
    		- 시간대 설정   : sudo ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime
-   		- 방화벽 오픈   : TCP 1521   
+   		- 방화벽 오픈(AWS)   : TCP 1521 
+   		- 방화벽 오픈(VM)    : sudo ufw disable 		<== 우분투 방화벽 비활성화
+							sudo reboot 		 
    		- 도커 설치 : 도커 레지스트리에서 Oracle 21 버젼의 도커 이미지 다운 
    
 ========================================================================================
@@ -173,21 +175,22 @@ $ docker version
 
 
 • // 계정 설정
-$ sudo passwd root      <== root 계정의 패스워드 부여 
 
-$ su – root				<== 로그 아웃 하지 않고 root 계정으로 이동 
-
-root@DB:~# usermod -aG docker ubuntu			//vi /etc/group 
+$ sudo usermod -aG docker ubuntu			//vi /etc/group 
 	//ubuntu 계정을 docker 그룹에 포함  
 	//현재 로그온한 계정이 docker 그룹에 포함되어 있어야 docker의 기능을 사용할 수 있는 권한을 가진다. 
 
- root@DB:~# su - ubuntu 
  $ docker 
  
  // oracle-xe 최신 버젼 이미지를 도커허브(Registry) 에서 다운 받아서 컨테이너로 실행  
- $ docker run -d -p 1521:1521 -e ORACLE_PASSWORD=1234 gvenzl/oracle-xe
+//접속 오류 :  $ docker run -d -p 1521:1521 -e ORACLE_PASSWORD=1234 gvenzl/oracle-xe
+ 
+ $ docker run -d -p 3306:3306 --name db-mysql -e MYSQL_ROOT_PASSWORD=1234 mysql
+ 
  
  	docker run : 도커이미지를 다운 받아서 실행 (컨테이너) 
+ 				docker pull (이미지 다운로드) + docker build (이미지를 컨테이너화 )
+ 				
 		       -d   : 백그라운드로 실행
 		       -p 1521:1521   :   1521(Host):1521(Container) 
 			   -e ORACLE_PASSWORD=1234   : system 계정의 패스워드 
@@ -199,6 +202,11 @@ $ docker ps
 // 도커의 이미지 보기 
 $ docker images
 
+// 도커 컨테이너와 도커이미지를 모두 한꺼번에 제거 : 로컬에있는 모든 도커 컨테이너, 모든 도커 이미지 
+docker rm -f $(docker ps -a -q) && docker rmi -f $(docker images -q) 
+
+// MySQL 도커 이미지 
+ $ docker run -d -p 3306:3306 --name db-mysql -e MYSQL_ROOT_PASSWORD=1234 mysql
 
 
 
