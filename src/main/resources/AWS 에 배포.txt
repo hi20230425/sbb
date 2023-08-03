@@ -208,7 +208,40 @@ docker rm -f $(docker ps -a -q) && docker rmi -f $(docker images -q)
 // MySQL 도커 이미지 
  $ docker run -d -p 3306:3306 --name db-mysql -e MYSQL_ROOT_PASSWORD=1234 mysql
 
+// WEB VM에 jar 배포 
 
+	java -Dspring.profiles.active=prod -jar sbb-0.0.3-SNAPSHOT.jar
+		application.properties 			: 개발 환경 
+		application-prod.properties 	: 운영 환경 
+		
+서비스 시작 스크립트 : start_prod.sh
+===========================================
+#!/bin/bash 
+
+JAR=sbb/sbb-0.0.3-SNAPSHOT.jar
+LOG=/home/ubuntu/sbb/sbb.log
+export spring_profiles_active=prod
+
+nohup sudo java -jar $JAR > $LOG 2>&1 &
+===========================================
+실행 권한을 부여 : sudo chmod +x start.sh 
+		
+	
+서비스 종료 스크립트 : stop.sh
+===========================================
+#!/bin/bash
+
+SBB_PID=$(ps -ef | grep java | grep sbb | awk '{print $2}')
+
+if [ -z "$SBB_PID" ]; 
+then 
+	echo "SBB is not running"
+else 
+	sudo kill -9 $SBB_PID
+	echo "SBB stopped. "
+fi 
+===========================================
+실행 권한을 부여 : sudo chmod +x start.sh 
 
 
 
