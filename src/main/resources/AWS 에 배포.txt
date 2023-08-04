@@ -276,13 +276,36 @@ server {
         server_name localhost;
 
         location / {
-                proxy_pass http://localhost:8080;
+                proxy_pass http://localhost:9696;
                 proxy_set_header X-Real-IP $remote_addr;
                 proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
                 proxy_set_header Host $http_host;
         }
 }
 ====================================
+
+// 기존의 설정을 제거후 링크 새롭게 생성 
+$ cd /etc/nginx/sites-enable 
+$ sudo rm default 
+$ sudo ln -s /etc/nginx/sites-available/sbb
+
+// nginx 서비스 다시 시작 
+$ sudo systemctl restart nginx
+
+// nginx 설정의 오류난 경우 만  
+$ sudo nginx -t
+
+
+========================================================
+// WAS (Tomcat) 작동 : TCP 9696 
+
+$ cd ~/sbb
+$ java -Dspring.profiles.active=prod -jar sbb-0.0.5-SNAPSHOT.jar
+		application.properties      : 개발 
+		application-prod.properties : 운영 
+
+
+
 
 
 
