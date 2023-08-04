@@ -251,6 +251,51 @@ fi
 
 
 
+===========================================================
+ WEB (Nginx)  ===> WAS (Tomcat) ===> DB (MySQL : docker Container) 
+  TCP 80           TCP 9696           TCP 3306 
+
+
+// Nginx 설치 
+$ sudo apt install nginx 
+
+// Nginx 서비스 작동 확인 
+$ sudo systemctl status nginx
+
+
+// Nginx 설정 
+
+$ cd /etc/nginx/siste-available 
+
+$ sudo rm default
+
+$ sudo vi sbb
+====================================
+server {
+        listen 80;
+        server_name localhost;
+
+        location / {
+                proxy_pass http://localhost:8080;
+                proxy_set_header X-Real-IP $remote_addr;
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                proxy_set_header Host $http_host;
+        }
+}
+====================================
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
