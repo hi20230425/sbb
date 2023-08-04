@@ -265,7 +265,7 @@ $ sudo systemctl status nginx
 
 // Nginx 설정 
 
-$ cd /etc/nginx/siste-available 
+$ cd /etc/nginx/sites-available 
 
 $ sudo rm default
 
@@ -285,7 +285,7 @@ server {
 ====================================
 
 // 기존의 설정을 제거후 링크 새롭게 생성 
-$ cd /etc/nginx/sites-enable 
+$ cd /etc/nginx/sites-enabled 
 $ sudo rm default 
 $ sudo ln -s /etc/nginx/sites-available/sbb
 
