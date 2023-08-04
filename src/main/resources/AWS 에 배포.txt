@@ -304,7 +304,51 @@ $ java -Dspring.profiles.active=prod -jar sbb-0.0.5-SNAPSHOT.jar
 		application.properties      : 개발 
 		application-prod.properties : 운영 
 
+===========================================================
+Local 에서 VM 3개 생성 : RAM 4G, Ubuntu 22.4 LTS 
 
+   	WEB					WAS					DB 
+   ====================================================
+   	Nginx				Tomcat				MySQL (Docker Container) 
+   	TCP 80 				TCP 9696			TCP 3306
+   ====================================================
+   	nginx 설치			jdk 17 				docker 설치 ( MySQL ) 
+IP: 192.168.x.100		192.168.x.110		192.168.x.120
+SM: 255.255.255.0(24)	255.255.255.0(24)	255.255.255.0(24)
+GW: 192.168.x.2			192.168.x.2			192.168.x.2
+DNS: 192.168.x.2		192.168.x.2			192.168.x.2
+   	
+	
+  1. 컴퓨터이름 변경 		: 설치시 셋팅됨
+  2. 시간대 서울시간대 변경  : 설치시 셋팅됨 
+  3. ssh 설치 
+  4. 고정 IP  : nmtui 
+  
+ // Ubuntu 를 VM에 설치 할 경우 ssh 가 설치가 되어 있지 않다. 
+ $ sudo systemctl status ssh 
+ 
+ $ sudo apt update 
+ $ sudo apt install openssh-server
+ 
+  $ sudo systemctl status ssh 
+  
+  // 방화벽 상태 확인 
+  $ sudo ufw status 
+  
+  $ sudo ufw disable 		: 비활성화 
+  
+  // TCP / IP Setting (고정 IP) : nmtui 
+  $ ping 8.8.8.8
+  $ ip addr				: 자동을  VMWare 에서 부여된 IP 확인 : 192.168.111.131
+  
+  ncpa.cpl    : 네트워크 보기 
+  
+  
+  
+  
+ 
+ 
+ 
 
 
 
